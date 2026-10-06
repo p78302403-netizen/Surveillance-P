@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Paiement réussi — Surveillance P.</title>
+  <meta name="description" content="Confirmation de paiement de votre avis de stationnement.">
+
+  <!-- Polices Google Fonts : Barlow Condensed (titres) et Barlow (texte) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Bandeau du haut avec le nom de la compagnie -->
+  <header class="bandeau">
+    <div class="bandeau__contenu">
+      <img class="bandeau__logo" src="logo.svg" alt="Logo de Surveillance P.">
+      <p class="bandeau__nom">Surveillance P.</p>
+    </div>
+  </header>
+
+  <main class="contenu">
+
+    <!-- Message de succès -->
+    <div class="succes-entete">
+      <span class="succes-entete__coche" aria-hidden="true">&#10003;</span>
+      <h1>Paiement réussi. Merci!</h1>
+      <p>
+        Votre avis de stationnement est maintenant réglé. Un reçu a été envoyé
+        à votre adresse courriel.
+      </p>
+    </div>
+
+    <!-- Reçu / facture -->
+    <section class="carte facture" aria-labelledby="t-facture">
+      <div class="facture__entete">
+        <div>
+          <h2 id="t-facture">Reçu de paiement</h2>
+          <p class="facture__compagnie">
+            Surveillance P.<br>
+            330-6750, avenue de l'Esplanade<br>
+            Montréal (QC) H2V 1A2<br>
+            1 800 361-6685
+          </p>
+        </div>
+        <img class="facture__logo" src="logo.svg" alt="">
+      </div>
+
+      <dl class="facture__infos">
+        <div>
+          <dt>N° de confirmation</dt>
+          <dd id="no-confirmation">—</dd>
+        </div>
+        <div>
+          <dt>Date</dt>
+          <dd id="date-paiement">—</dd>
+        </div>
+        <div>
+          <dt>N° de l'avis</dt>
+          <dd id="no-avis">—</dd>
+        </div>
+        <div>
+          <dt>Mode de paiement</dt>
+          <dd>Carte de crédit ou de débit</dd>
+        </div>
+      </dl>
+
+      <!-- Détail du montant -->
+      <div class="total">
+        <div class="total__ligne">
+          <span>Amende</span>
+          <span>14,00&nbsp;$</span>
+        </div>
+        <div class="total__ligne">
+          <span>TPS (5&nbsp;%)</span>
+          <span>0,70&nbsp;$</span>
+        </div>
+        <div class="total__ligne">
+          <span>TVQ (9,975&nbsp;%)</span>
+          <span>1,40&nbsp;$</span>
+        </div>
+        <div class="total__ligne total__ligne--grand">
+          <span>Total payé</span>
+          <span>16,10&nbsp;$</span>
+        </div>
+      </div>
+
+      <!--
+        TODO DÉVELOPPEURS — Reçu de démonstration.
+        En production, remplir ce reçu avec les données réelles renvoyées par
+        le processeur de paiement : n° de transaction, date/heure réelles,
+        4 derniers chiffres de la carte, montant réellement capturé (incluant
+        d'éventuels frais de retard), et déclencher l'envoi du reçu par courriel.
+      -->
+    </section>
+
+    <div class="facture__actions no-print">
+      <button type="button" class="btn" id="btn-imprimer">Imprimer le reçu</button>
+      <a class="retour" href="index.html">Retour à l'accueil</a>
+    </div>
+
+  </main>
+
+  <!-- Pied de page avec les coordonnées -->
+  <footer class="pied no-print">
+    <div class="pied__contenu">
+      <strong>Surveillance P.</strong><br>
+      330-6750, avenue de l'Esplanade, Montréal (QC)&nbsp; H2V 1A2<br>
+      Téléphone : <a href="tel:+18003616685">1 800 361-6685</a> ·
+      Courriel : <a href="mailto:surveillanceP@incorporation.qc.ca">surveillanceP@incorporation.qc.ca</a>
+    </div>
+  </footer>
+
+  <script>
+  "use strict";
+
+  // Récupère le numéro d'avis saisi à l'étape précédente (si disponible)
+  let noAvis = "";
+  try {
+    noAvis = sessionStorage.getItem("num-avis") || "";
+  } catch (e) {
+    noAvis = "";
+  }
+  document.getElementById("no-avis").textContent = noAvis || "Non précisé";
+
+  // Date du paiement (maintenant)
+  const maintenant = new Date();
+  document.getElementById("date-paiement").textContent =
+    maintenant.toLocaleDateString("fr-CA") + " " +
+    maintenant.toLocaleTimeString("fr-CA", { hour: "2-digit", minute: "2-digit" });
+
+  // N° de confirmation de démonstration
+  // TODO DÉVELOPPEURS : utiliser le vrai n° de transaction du processeur.
+  const aleatoire = Math.floor(100000 + Math.random() * 900000);
+  document.getElementById("no-confirmation").textContent = "SP-" + aleatoire;
+
+  // Bouton d'impression
+  document.getElementById("btn-imprimer").addEventListener("click", () => {
+    window.print();
+  });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Surveillance P. — Payer un avis de stationnement</title>
+  <meta name="description" content="Payez en ligne l'avis de stationnement laissé sur votre véhicule.">
+
+  <!-- Polices Google Fonts : Barlow Condensed (titres) et Barlow (texte) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Bandeau du haut avec le nom de la compagnie -->
+  <header class="bandeau">
+    <div class="bandeau__contenu">
+      <img class="bandeau__logo" src="logo.svg" alt="Logo de Surveillance P.">
+      <p class="bandeau__nom">Surveillance P.</p>
+    </div>
+  </header>
+
+  <main class="contenu accueil">
+    <h1 class="accueil__titre">Vous avez reçu un avis de stationnement?</h1>
+    <p class="accueil__intro">
+      Réglez votre avis en quelques minutes, de façon sécuritaire. Gardez votre
+      avis à portée de main : vous aurez besoin du numéro inscrit dessus.
+    </p>
+
+    <!-- Avis de délai : 72 heures pour payer -->
+    <p class="delai" role="note">
+      <strong>Vous avez 72 heures pour payer votre amende.</strong>
+      Passé ce délai, des frais de retard de 1&nbsp;$ par jour s'ajoutent au montant dû.
+      Le montant total à payer est calculé selon la date inscrite sur votre avis.
+    </p>
+
+    <!-- Très gros bouton jaune vers la page de paiement -->
+    <a class="btn btn--geant" href="paiement.html">Payer mon amende</a>
+
+    <!-- Explication : pourquoi un avis a été émis -->
+    <section class="avant" aria-labelledby="titre-pourquoi">
+      <h2 id="titre-pourquoi">Pourquoi ai-je reçu un avis?</h2>
+      <p>
+        Les places de stationnement où était garé votre véhicule sont
+        <strong>réservées aux utilisateurs de ClickParking et de Parkin&nbsp;P</strong>.
+        Ces places se réservent à l'avance sur les applications mobiles, ou
+        grâce à une <strong>vignette</strong> que vous commandez auprès de la
+        ville, afin de prioriser votre accès aux places de stationnement.
+      </p>
+    </section>
+
+    <!-- Liste « Avant de payer » -->
+    <section class="avant" aria-labelledby="titre-avant">
+      <h2 id="titre-avant">Avant de payer</h2>
+      <ul>
+        <li>
+          Le <strong>numéro d'avis</strong> se trouve sur le papier laissé sous
+          l'essuie-glace, du côté du pare-brise.
+        </li>
+        <li>
+          Vous disposez de <strong>72&nbsp;heures</strong> pour payer. Après ce
+          délai, des <strong>frais de retard de 1&nbsp;$ par jour</strong> sont
+          facturés en sus.
+        </li>
+        <li>
+          Un <strong>reçu</strong> vous sera envoyé par courriel une fois le
+          paiement complété.
+        </li>
+        <li>
+          Vous souhaitez <strong>contester l'avis</strong>? Écrivez-nous à
+          <a href="mailto:surveillanceP@incorporation.qc.ca">surveillanceP@incorporation.qc.ca</a> ou appelez le
+          <a href="tel:+18003616685">1 800 361-6685</a>.
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Pied de page avec les coordonnées -->
+  <footer class="pied">
+    <div class="pied__contenu">
+      <strong>Surveillance P.</strong><br>
+      330-6750, avenue de l'Esplanade, Montréal (QC)&nbsp; H2V 1A2<br>
+      Téléphone : <a href="tel:+18003616685">1 800 361-6685</a> ·
+      Courriel : <a href="mailto:surveillanceP@incorporation.qc.ca">surveillanceP@incorporation.qc.ca</a>
+    </div>
+  </footer>
+
+</body>
+</html>

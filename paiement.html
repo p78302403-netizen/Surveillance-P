@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Paiement d'un avis — Surveillance P.</title>
+  <meta name="description" content="Formulaire de paiement de l'avis de stationnement.">
+
+  <!-- Polices Google Fonts : Barlow Condensed (titres) et Barlow (texte) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Bandeau du haut avec le nom de la compagnie -->
+  <header class="bandeau">
+    <div class="bandeau__contenu">
+      <img class="bandeau__logo" src="logo.svg" alt="Logo de Surveillance P.">
+      <p class="bandeau__nom">Surveillance P.</p>
+    </div>
+  </header>
+
+  <main class="contenu">
+    <a class="retour" href="index.html">&larr; Retour à l'accueil</a>
+    <h1>Payer mon avis de stationnement</h1>
+
+    <!-- novalidate : on gère la validation nous-mêmes en JavaScript -->
+    <form id="form-paiement" novalidate>
+
+      <!-- ============ Section : Votre avis ============ -->
+      <section class="carte" aria-labelledby="t-avis">
+        <h2 id="t-avis">Votre avis</h2>
+        <p class="rappel-delai">
+          <strong>Rappel :</strong> l'amende doit être payée dans les 72&nbsp;heures.
+          Au-delà, des frais de retard de 1&nbsp;$ par jour s'ajoutent.
+        </p>
+        <div class="champ">
+          <label for="num-avis">Numéro de l'avis</label>
+          <input
+            type="text"
+            id="num-avis"
+            name="num-avis"
+            inputmode="text"
+            autocomplete="off"
+            placeholder="Ex. : A-123456"
+            aria-describedby="err-num-avis">
+          <span class="erreur" id="err-num-avis" role="alert"></span>
+        </div>
+
+        <!-- Détail du montant à payer -->
+        <div class="total">
+          <div class="total__ligne">
+            <span>Amende</span>
+            <span>14,00&nbsp;$</span>
+          </div>
+          <div class="total__ligne">
+            <span>TPS (5&nbsp;%)</span>
+            <span>0,70&nbsp;$</span>
+          </div>
+          <div class="total__ligne">
+            <span>TVQ (9,975&nbsp;%)</span>
+            <span>1,40&nbsp;$</span>
+          </div>
+          <div class="total__ligne total__ligne--grand">
+            <span>Total à payer</span>
+            <span>16,10&nbsp;$</span>
+          </div>
+          <!--
+            TODO DÉVELOPPEURS — Ce total (14 $ + TPS 5 % + TVQ 9,975 % = 16,10 $)
+            est fixe pour la maquette. En production, le montant devra être
+            calculé côté serveur selon l'avis : montant de base + frais de retard
+            (1 $/jour après 72 h) + taxes, puis renvoyé ici.
+          -->
+        </div>
+      </section>
+
+      <!-- ============ Section : Carte ============ -->
+      <section class="carte" aria-labelledby="t-carte">
+        <h2 id="t-carte">Carte de crédit ou de débit</h2>
+
+        <!-- Cartes acceptées -->
+        <p class="cartes-acceptees">
+          <span class="cartes-acceptees__texte">Nous acceptons&nbsp;:</span>
+
+          <!-- Visa -->
+          <svg class="logo-carte" viewBox="0 0 48 32" role="img" aria-label="Visa">
+            <rect width="48" height="32" rx="4" fill="#fff" stroke="#e0e0e0"/>
+            <text x="24" y="21" text-anchor="middle" font-family="Arial, sans-serif"
+                  font-size="12" font-weight="bold" font-style="italic" fill="#1a1f71">VISA</text>
+          </svg>
+
+          <!-- Mastercard -->
+          <svg class="logo-carte" viewBox="0 0 48 32" role="img" aria-label="Mastercard">
+            <rect width="48" height="32" rx="4" fill="#fff" stroke="#e0e0e0"/>
+            <circle cx="20" cy="16" r="8" fill="#eb001b"/>
+            <circle cx="28" cy="16" r="8" fill="#f79e1b"/>
+            <path d="M24 10a8 8 0 0 1 0 12 8 8 0 0 1 0-12z" fill="#ff5f00"/>
+          </svg>
+
+          <!-- American Express -->
+          <svg class="logo-carte" viewBox="0 0 48 32" role="img" aria-label="American Express">
+            <rect width="48" height="32" rx="4" fill="#2e77bc"/>
+            <text x="24" y="14" text-anchor="middle" font-family="Arial, sans-serif"
+                  font-size="7" font-weight="bold" fill="#fff">AMERICAN</text>
+            <text x="24" y="23" text-anchor="middle" font-family="Arial, sans-serif"
+                  font-size="7" font-weight="bold" fill="#fff">EXPRESS</text>
+          </svg>
+        </p>
+
+        <!--
+          ============================================================
+          TODO DÉVELOPPEURS (1) — CHAMPS HÉBERGÉS (IFRAME)
+          ------------------------------------------------------------
+          Les champs ci-dessous (numéro de carte, expiration, code de
+          sécurité) ne sont présents QUE pour la maquette et la
+          démonstration de la validation côté client.
+
+          AVANT la mise en production, remplacer ces trois champs par
+          les CHAMPS HÉBERGÉS (iframe) de notre processeur de paiement
+          privé, de façon à ce que le numéro de carte, l'expiration et
+          le code de sécurité ne transitent JAMAIS par notre serveur
+          (conformité PCI-DSS).
+
+          Le champ « Nom sur la carte » peut rester sur notre page si
+          le processeur ne l'héberge pas.
+          ============================================================
+        -->
+
+        <div class="champ">
+          <label for="nom-carte">Nom sur la carte</label>
+          <input
+            type="text"
+            id="nom-carte"
+            name="nom-carte"
+            autocomplete="cc-name"
+            autocapitalize="characters"
+            placeholder="Tel qu'inscrit sur la carte"
+            aria-describedby="err-nom-carte">
+          <span class="erreur" id="err-nom-carte" role="alert"></span>
+        </div>
+
+        <div class="champ">
+          <label for="num-carte">Numéro de carte</label>
+          <input
+            type="text"
+            id="num-carte"
+            name="num-carte"
+            inputmode="numeric"
+            autocomplete="cc-number"
+            maxlength="23"
+            placeholder="1234 5678 9012 3456"
+            aria-describedby="err-num-carte">
+          <span class="erreur" id="err-num-carte" role="alert"></span>
+        </div>
+
+        <div class="rangee">
+          <div class="champ">
+            <label for="expiration">Expiration (MM/AA)</label>
+            <input
+              type="text"
+              id="expiration"
+              name="expiration"
+              inputmode="numeric"
+              autocomplete="cc-exp"
+              maxlength="5"
+              placeholder="MM/AA"
+              aria-describedby="err-expiration">
+            <span class="erreur" id="err-expiration" role="alert"></span>
+          </div>
+
+          <div class="champ">
+            <label for="cvv">Code de sécurité
+              <span class="champ__indice">3 chiffres au verso</span>
+            </label>
+            <input
+              type="text"
+              id="cvv"
+              name="cvv"
+              inputmode="numeric"
+              autocomplete="cc-csc"
+              maxlength="3"
+              placeholder="123"
+              aria-describedby="err-cvv">
+            <span class="erreur" id="err-cvv" role="alert"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Section : Adresse de facturation ============ -->
+      <section class="carte" aria-labelledby="t-adresse">
+        <h2 id="t-adresse">Adresse de facturation</h2>
+
+        <div class="champ">
+          <label for="adresse">Adresse</label>
+          <input
+            type="text"
+            id="adresse"
+            name="adresse"
+            autocomplete="billing street-address"
+            placeholder="123, rue Principale"
+            aria-describedby="err-adresse">
+          <span class="erreur" id="err-adresse" role="alert"></span>
+        </div>
+
+        <div class="champ">
+          <label for="ville">Ville</label>
+          <input
+            type="text"
+            id="ville"
+            name="ville"
+            autocomplete="billing address-level2"
+            placeholder="Montréal"
+            aria-describedby="err-ville">
+          <span class="erreur" id="err-ville" role="alert"></span>
+        </div>
+
+        <div class="rangee">
+          <div class="champ">
+            <label for="province">Province</label>
+            <select
+              id="province"
+              name="province"
+              autocomplete="billing address-level1"
+              aria-describedby="err-province">
+              <option value="">Choisir…</option>
+              <option value="AB">Alberta</option>
+              <option value="BC">Colombie-Britannique</option>
+              <option value="PE">Île-du-Prince-Édouard</option>
+              <option value="MB">Manitoba</option>
+              <option value="NB">Nouveau-Brunswick</option>
+              <option value="NS">Nouvelle-Écosse</option>
+              <option value="ON">Ontario</option>
+              <option value="QC">Québec</option>
+              <option value="SK">Saskatchewan</option>
+              <option value="NL">Terre-Neuve-et-Labrador</option>
+              <option value="NT">Territoires du Nord-Ouest</option>
+              <option value="NU">Nunavut</option>
+              <option value="YT">Yukon</option>
+            </select>
+            <span class="erreur" id="err-province" role="alert"></span>
+          </div>
+
+          <div class="champ">
+            <label for="code-postal">Code postal</label>
+            <input
+              type="text"
+              id="code-postal"
+              name="code-postal"
+              autocomplete="billing postal-code"
+              maxlength="7"
+              placeholder="A1A 1A1"
+              aria-describedby="err-code-postal">
+            <span class="erreur" id="err-code-postal" role="alert"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gros bouton de paiement -->
+      <button type="submit" class="btn btn--bloc">Payer maintenant — 16,10&nbsp;$</button>
+
+      <!-- Message global affiché après le clic -->
+      <div id="avis-global" class="avis-global" role="status" aria-live="polite"></div>
+    </form>
+  </main>
+
+  <!-- Pied de page avec les coordonnées -->
+  <footer class="pied">
+    <div class="pied__contenu">
+      <strong>Surveillance P.</strong><br>
+      330-6750, avenue de l'Esplanade, Montréal (QC)&nbsp; H2V 1A2<br>
+      Téléphone : <a href="tel:+18003616685">1 800 361-6685</a> ·
+      Courriel : <a href="mailto:surveillanceP@incorporation.qc.ca">surveillanceP@incorporation.qc.ca</a>
+    </div>
+  </footer>
+
+  <script>
+  "use strict";
+
+  /* =========================================================
+     Mise en forme automatique pendant la saisie
+     ========================================================= */
+
+  const champNumCarte = document.getElementById("num-carte");
+  const champExpiration = document.getElementById("expiration");
+  const champCvv = document.getElementById("cvv");
+  const champCodePostal = document.getElementById("code-postal");
+
+  // Numéro de carte : espace tous les 4 chiffres (1234 5678 9012 3456)
+  champNumCarte.addEventListener("input", () => {
+    const chiffres = champNumCarte.value.replace(/\D/g, "").slice(0, 19);
+    champNumCarte.value = chiffres.replace(/(.{4})/g, "$1 ").trim();
+  });
+
+  // Expiration : insère automatiquement la barre oblique (MM/AA)
+  champExpiration.addEventListener("input", () => {
+    let chiffres = champExpiration.value.replace(/\D/g, "").slice(0, 4);
+    if (chiffres.length >= 3) {
+      chiffres = chiffres.slice(0, 2) + "/" + chiffres.slice(2);
+    }
+    champExpiration.value = chiffres;
+  });
+
+  // Code de sécurité : chiffres seulement
+  champCvv.addEventListener("input", () => {
+    champCvv.value = champCvv.value.replace(/\D/g, "").slice(0, 3);
+  });
+
+  // Code postal : majuscules + une espace après le 3e caractère (A1A 1A1)
+  champCodePostal.addEventListener("input", () => {
+    let v = champCodePostal.value.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 6);
+    if (v.length > 3) {
+      v = v.slice(0, 3) + " " + v.slice(3);
+    }
+    champCodePostal.value = v;
+  });
+
+  /* =========================================================
+     Fonctions de validation
+     ========================================================= */
+
+  // Algorithme de Luhn : vérifie la cohérence du numéro de carte
+  function luhnValide(numero) {
+    const chiffres = numero.replace(/\D/g, "");
+    if (chiffres.length < 13 || chiffres.length > 19) return false;
+
+    let somme = 0;
+    let doubler = false;
+    for (let i = chiffres.length - 1; i >= 0; i--) {
+      let n = parseInt(chiffres.charAt(i), 10);
+      if (doubler) {
+        n *= 2;
+        if (n > 9) n -= 9;
+      }
+      somme += n;
+      doubler = !doubler;
+    }
+    return somme % 10 === 0;
+  }
+
+  // Expiration non échue (format MM/AA attendu)
+  function expirationValide(valeur) {
+    const m = valeur.match(/^(\d{2})\/(\d{2})$/);
+    if (!m) return false;
+
+    const mois = parseInt(m[1], 10);
+    const annee = 2000 + parseInt(m[2], 10);
+    if (mois < 1 || mois > 12) return false;
+
+    const maintenant = new Date();
+    // Dernier jour du mois d'expiration (la carte reste valide tout ce mois-là)
+    const finDuMois = new Date(annee, mois, 0, 23, 59, 59);
+    return finDuMois >= maintenant;
+  }
+
+  // Format du code postal canadien : A1A 1A1
+  function codePostalValide(valeur) {
+    return /^[ABCEGHJ-NPRSTVXY]\d[A-Z] \d[A-Z]\d$/.test(valeur.toUpperCase());
+  }
+
+  /* =========================================================
+     Affichage / effacement des messages d'erreur
+     ========================================================= */
+
+  function montrerErreur(idChamp, message) {
+    const champ = document.getElementById(idChamp);
+    const boite = document.getElementById("err-" + idChamp);
+    champ.setAttribute("aria-invalid", "true");
+    boite.textContent = message;
+  }
+
+  function effacerErreur(idChamp) {
+    const champ = document.getElementById(idChamp);
+    const boite = document.getElementById("err-" + idChamp);
+    champ.removeAttribute("aria-invalid");
+    boite.textContent = "";
+  }
+
+  function afficherAvisGlobal(message, type) {
+    const avis = document.getElementById("avis-global");
+    avis.textContent = message;
+    avis.className = "avis-global actif avis-global--" + type;
+  }
+
+  /* =========================================================
+     Validation à la soumission
+     ========================================================= */
+
+  const form = document.getElementById("form-paiement");
+
+  form.addEventListener("submit", (evenement) => {
+    evenement.preventDefault();
+
+    // Redirection directe vers la page de confirmation, SANS validation :
+    // au clic sur « Payer maintenant », on va toujours à « Paiement réussi ».
+    // On conserve le numéro d'avis pour l'afficher sur le reçu.
+    //
+    // TODO DÉVELOPPEURS : en production, ne rediriger vers la confirmation
+    // QU'APRÈS que le processeur de paiement ait confirmé le paiement
+    // (voir le TODO (2)). Ne jamais stocker ni transmettre les données de carte.
+    try {
+      sessionStorage.setItem("num-avis", document.getElementById("num-avis").value.trim());
+    } catch (e) { /* stockage indisponible : le reçu affichera « Non précisé » */ }
+
+    window.location.href = "confirmation.html";
+  });
+  </script>
+
+</body>
+</html>

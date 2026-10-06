@@ -1,0 +1,514 @@
+/* =========================================================
+   Feuille de style — Site de paiement d'avis de stationnement
+   Ambiance : panneau routier / stationnement
+   Gris asphalte foncé + jaune ligne de stationnement
+   ========================================================= */
+
+:root {
+  /* Palette */
+  --asphalte: #1f2227;        /* gris asphalte foncé */
+  --asphalte-clair: #2c313a;  /* surfaces foncées secondaires */
+  --jaune: #ffcb05;           /* jaune ligne de stationnement */
+  --jaune-fonce: #e0b000;     /* survol / bordures du jaune */
+  --fond-clair: #f4f5f7;      /* fond de la page de paiement */
+  --blanc: #ffffff;
+  --texte: #1f2227;
+  --texte-doux: #5b6370;
+  --texte-sur-foncé: #eef0f3;
+  --bordure: #cfd4dc;
+  --erreur: #c0392b;
+  --succes: #1e7e4f;
+  --focus: #1a73e8;           /* contour de focus clavier, bien contrasté */
+
+  --rayon: 10px;
+  --ombre: 0 2px 10px rgba(0, 0, 0, 0.12);
+  --largeur-max: 760px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--texte);
+  background: var(--fond-clair);
+  line-height: 1.6;
+  font-size: 17px;
+}
+
+h1, h2, h3,
+.bandeau__nom,
+.btn {
+  font-family: "Barlow Condensed", "Barlow", system-ui, sans-serif;
+  letter-spacing: 0.4px;
+}
+
+h1 { font-weight: 700; }
+h2 { font-weight: 600; }
+
+a {
+  color: var(--focus);
+}
+
+/* ----- Focus clavier bien visible partout ----- */
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* =========================================================
+   Bandeau (en-tête)
+   ========================================================= */
+.bandeau {
+  background: var(--asphalte);
+  color: var(--texte-sur-foncé);
+  border-bottom: 5px solid var(--jaune);
+}
+
+.bandeau__contenu {
+  max-width: var(--largeur-max);
+  margin: 0 auto;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bandeau__logo {
+  height: 44px;        /* ajustez la hauteur selon votre logo */
+  width: auto;
+  display: block;
+  flex: none;
+}
+
+.bandeau__nom {
+  font-size: 26px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0;
+  color: var(--blanc);
+}
+
+/* =========================================================
+   Contenu principal
+   ========================================================= */
+.contenu {
+  max-width: var(--largeur-max);
+  margin: 0 auto;
+  padding: 28px 20px 40px;
+}
+
+/* ----- Page d'accueil ----- */
+.accueil {
+  text-align: center;
+}
+
+.accueil__titre {
+  font-size: clamp(28px, 6vw, 40px);
+  margin: 10px 0 8px;
+  line-height: 1.15;
+}
+
+.accueil__intro {
+  color: var(--texte-doux);
+  max-width: 48ch;
+  margin: 0 auto 28px;
+}
+
+/* ----- Avis de délai (72 heures) ----- */
+.delai {
+  background: var(--asphalte);
+  color: var(--texte-sur-foncé);
+  border: 3px solid var(--jaune);
+  border-radius: var(--rayon);
+  padding: 14px 18px;
+  margin: 0 auto 28px;
+  max-width: 480px;
+  text-align: left;
+}
+
+.delai strong {
+  color: var(--jaune);
+}
+
+/* ----- Gros bouton jaune ----- */
+.btn {
+  display: inline-block;
+  background: var(--jaune);
+  color: var(--asphalte);
+  border: 3px solid var(--jaune-fonce);
+  text-decoration: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: var(--rayon);
+  box-shadow: var(--ombre);
+  transition: transform 0.05s ease, background 0.15s ease;
+}
+
+.btn:hover {
+  background: var(--jaune-fonce);
+}
+
+.btn:active {
+  transform: translateY(2px);
+}
+
+.btn--geant {
+  font-size: clamp(26px, 6vw, 36px);
+  padding: 26px 40px;
+  width: 100%;
+  max-width: 480px;
+}
+
+.btn--bloc {
+  width: 100%;
+  font-size: 24px;
+  padding: 20px;
+}
+
+/* ----- Liste « Avant de payer » ----- */
+.avant {
+  text-align: left;
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-left: 6px solid var(--jaune);
+  border-radius: var(--rayon);
+  padding: 20px 24px;
+  margin: 36px auto 0;
+  max-width: 560px;
+  box-shadow: var(--ombre);
+}
+
+.avant h2 {
+  margin-top: 0;
+  font-size: 22px;
+}
+
+.avant ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.avant li {
+  margin-bottom: 10px;
+}
+
+.avant li:last-child {
+  margin-bottom: 0;
+}
+
+/* =========================================================
+   Formulaire de paiement
+   ========================================================= */
+.carte {
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  padding: 22px 22px 26px;
+  margin-bottom: 22px;
+  box-shadow: var(--ombre);
+}
+
+.carte > h2 {
+  margin-top: 0;
+  font-size: 22px;
+  border-bottom: 3px solid var(--jaune);
+  padding-bottom: 8px;
+}
+
+.cartes-acceptees {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 18px;
+}
+
+.cartes-acceptees__texte {
+  font-weight: 600;
+  color: var(--texte-doux);
+  margin-right: 4px;
+}
+
+.logo-carte {
+  width: 48px;
+  height: 32px;
+  display: block;
+}
+
+.total {
+  margin-top: 18px;
+  border-top: 2px dashed var(--bordure);
+  padding-top: 14px;
+}
+
+.total__ligne {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 4px 0;
+  color: var(--texte-doux);
+}
+
+.total__ligne--grand {
+  margin-top: 6px;
+  padding-top: 10px;
+  border-top: 2px solid var(--asphalte);
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--texte);
+}
+
+.rappel-delai {
+  background: #fff8db;
+  border-left: 5px solid var(--jaune-fonce);
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin: 0 0 18px;
+  font-size: 15px;
+}
+
+.champ {
+  margin-bottom: 18px;
+}
+
+.champ:last-child {
+  margin-bottom: 0;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.champ__indice {
+  display: block;
+  font-weight: 400;
+  color: var(--texte-doux);
+  font-size: 14px;
+  margin-top: 2px;
+}
+
+input,
+select {
+  width: 100%;
+  font-family: inherit;
+  font-size: 17px;
+  padding: 13px 14px;
+  border: 2px solid var(--bordure);
+  border-radius: 8px;
+  background: var(--blanc);
+  color: var(--texte);
+}
+
+input:focus,
+select:focus {
+  border-color: var(--focus);
+  outline: 3px solid rgba(26, 115, 232, 0.25);
+  outline-offset: 0;
+}
+
+/* Champ en erreur */
+input[aria-invalid="true"],
+select[aria-invalid="true"] {
+  border-color: var(--erreur);
+  background: #fdf3f2;
+}
+
+/* Message d'erreur sous le champ */
+.erreur {
+  display: block;
+  color: var(--erreur);
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 6px;
+  min-height: 1px;
+}
+
+/* Deux champs côte à côte (expiration / code) */
+.rangee {
+  display: flex;
+  gap: 16px;
+}
+
+.rangee .champ {
+  flex: 1;
+}
+
+/* Message global après clic sur « Payer » */
+.avis-global {
+  margin-top: 18px;
+  padding: 16px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  display: none;
+}
+
+.avis-global.actif {
+  display: block;
+}
+
+.avis-global--info {
+  background: #fff8db;
+  border: 2px solid var(--jaune-fonce);
+  color: #5a4a00;
+}
+
+.avis-global--erreur {
+  background: #fdf3f2;
+  border: 2px solid var(--erreur);
+  color: var(--erreur);
+}
+
+.retour {
+  display: inline-block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+/* =========================================================
+   Page de confirmation / reçu
+   ========================================================= */
+.succes-entete {
+  text-align: center;
+  margin-bottom: 26px;
+}
+
+.succes-entete__coche {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--succes);
+  color: var(--blanc);
+  font-size: 34px;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.succes-entete h1 {
+  margin: 6px 0 8px;
+}
+
+.succes-entete p {
+  color: var(--texte-doux);
+  max-width: 44ch;
+  margin: 0 auto;
+}
+
+.facture__entete {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  border-bottom: 3px solid var(--jaune);
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+
+.facture__entete h2 {
+  margin: 0 0 8px;
+  border: none;
+  padding: 0;
+}
+
+.facture__compagnie {
+  margin: 0;
+  color: var(--texte-doux);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.facture__logo {
+  width: 52px;
+  height: auto;
+  flex: none;
+}
+
+.facture__infos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 20px;
+  margin: 0 0 4px;
+}
+
+.facture__infos dt {
+  font-size: 13px;
+  color: var(--texte-doux);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.facture__infos dd {
+  margin: 2px 0 0;
+  font-weight: 600;
+}
+
+.facture__actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.facture__actions .btn {
+  padding: 12px 22px;
+  font-size: 18px;
+}
+
+/* Impression : on masque les éléments non pertinents sur papier */
+@media print {
+  .no-print { display: none !important; }
+  body { background: #fff; }
+  .carte { box-shadow: none; border-color: #999; }
+}
+
+/* =========================================================
+   Pied de page
+   ========================================================= */
+.pied {
+  background: var(--asphalte);
+  color: var(--texte-sur-foncé);
+  border-top: 5px solid var(--jaune);
+  margin-top: 40px;
+}
+
+.pied__contenu {
+  max-width: var(--largeur-max);
+  margin: 0 auto;
+  padding: 24px 20px;
+  font-size: 15px;
+}
+
+.pied__contenu a {
+  color: var(--jaune);
+}
+
+/* =========================================================
+   Adaptation cellulaire
+   ========================================================= */
+@media (max-width: 520px) {
+  body { font-size: 16px; }
+
+  .rangee {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .avant {
+    padding: 18px;
+  }
+}
